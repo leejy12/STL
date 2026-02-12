@@ -3385,7 +3385,7 @@ _NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
     return _STD move(_Left);
 }
 
-// #if _HAS_CXX26
+#if _HAS_CXX26
 _EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
 _NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
     const basic_string<_Elem, _Traits, _Alloc>& _Left, type_identity_t<basic_string_view<_Elem, _Traits>> _Right) {
@@ -3415,7 +3415,7 @@ _NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
     _Right.insert(0, _Left);
     return _STD move(_Right);
 }
-// #endif // _HAS_CXX26
+#endif // _HAS_CXX26
 
 _EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
 _NODISCARD _CONSTEXPR20 bool operator==(
