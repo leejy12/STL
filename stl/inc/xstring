@@ -16,6 +16,10 @@
 #include <xpolymorphic_allocator.h>
 #endif // _HAS_CXX17
 
+#if _HAS_CXX26
+#include <type_traits>
+#endif // _HAS_CXX26
+
 #pragma pack(push, _CRT_PACKING)
 #pragma warning(push, _STL_WARNING_LEVEL)
 #pragma warning(disable : _STL_DISABLED_WARNINGS)
@@ -3380,6 +3384,38 @@ _NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
     _Left.push_back(_Right);
     return _STD move(_Left);
 }
+
+// #if _HAS_CXX26
+_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+_NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
+    const basic_string<_Elem, _Traits, _Alloc>& _Left, type_identity_t<basic_string_view<_Elem, _Traits>> _Right) {
+    basic_string<_Elem, _Traits, _Alloc> _Ret = _Left;
+    _Ret.append(_Right);
+    return _Ret;
+}
+
+_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+_NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
+    basic_string<_Elem, _Traits, _Alloc>&& _Left, type_identity_t<basic_string_view<_Elem, _Traits>> _Right) {
+    _Left.append(_Right);
+    return _STD move(_Left);
+}
+
+_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+_NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
+    type_identity_t<basic_string_view<_Elem, _Traits>> _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
+    basic_string<_Elem, _Traits, _Alloc> _Ret = _Right;
+    _Ret.insert(0, _Left);
+    return _Ret;
+}
+
+_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+_NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
+    type_identity_t<basic_string_view<_Elem, _Traits>> _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
+    _Right.insert(0, _Left);
+    return _STD move(_Right);
+}
+// #endif // _HAS_CXX26
 
 _EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
 _NODISCARD _CONSTEXPR20 bool operator==(
