@@ -1632,7 +1632,7 @@ _EMIT_STL_ERROR(STL1004, "C++98 unexpected() is incompatible with C++23 unexpect
 #define __cpp_lib_sample                201603L
 #define __cpp_lib_scoped_lock           201703L
 #define __cpp_lib_shared_ptr_weak_type  201606L
-#define __cpp_lib_string_view           201803L
+#define __cpp_lib_string_view           202403L
 #define __cpp_lib_to_chars              201611L
 #endif // _HAS_CXX17
 
