@@ -408,6 +408,9 @@
 //     (partial implementation; see GH-4924)
 // P3567R2 flat_meow Fixes
 
+// _HAS_CXX26 controls:
+// P2591R5 Concatenating string And string_view
+
 // Parallel Algorithms Notes
 // C++ allows an implementation to implement parallel algorithms as calls to the serial algorithms.
 // This implementation parallelizes several common algorithm calls, but not all.
