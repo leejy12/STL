@@ -1632,7 +1632,6 @@ _EMIT_STL_ERROR(STL1004, "C++98 unexpected() is incompatible with C++23 unexpect
 #define __cpp_lib_sample                201603L
 #define __cpp_lib_scoped_lock           201703L
 #define __cpp_lib_shared_ptr_weak_type  201606L
-#define __cpp_lib_string_view           202403L
 #define __cpp_lib_to_chars              201611L
 #endif // _HAS_CXX17
 
@@ -1847,6 +1846,12 @@ _EMIT_STL_ERROR(STL1004, "C++98 unexpected() is incompatible with C++23 unexpect
 #define __cpp_lib_variant 202106L // P2231R1 Completing constexpr In optional And variant
 #elif _HAS_CXX17
 #define __cpp_lib_variant 202102L // P2162R2 Inheriting From variant
+#endif
+
+#if _HAS_CXX26
+#define __cpp_lib_string_view 202403L // P2591R5 Concatenating string And string_view
+#elif _HAS_CXX17
+#define __cpp_lib_string_view 201803L
 #endif
 
 #ifdef _RTC_CONVERSION_CHECKS_ENABLED
