@@ -10,16 +10,16 @@ using namespace std;
 
 struct convertible_to_string_view {
 public:
-    operator string_view() const {
+    constexpr operator string_view() const {
         return string_view{"world"};
     }
 };
 
-string get_string() {
+constexpr string get_string() {
     return string{"hello"};
 }
 
-void test() {
+constexpr bool test() {
     string s{"hello"};
     string_view sv{"world"};
     convertible_to_string_view ctsv{};
@@ -52,8 +52,11 @@ void test() {
         static_assert(is_same_v<decltype(ctsv + get_string()), string>);
         assert(ctsv + get_string() == "worldhello");
     }
+
+    return true;
 }
 
 int main() {
+    static_assert(test());
     test();
 }
