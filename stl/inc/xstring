@@ -3389,13 +3389,11 @@ _NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 _EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
 _NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
     const basic_string<_Elem, _Traits, _Alloc>& _Left, type_identity_t<basic_string_view<_Elem, _Traits>> _Right) {
-    basic_string<_Elem, _Traits, _Alloc> _Ret(_Left.get_allocator());
-    const auto _New_size = _Left.size() + _Right.size();
-    _Ret.resize_and_overwrite(_New_size, [&](_Elem* _Ptr, basic_string<_Elem, _Traits, _Alloc>::size_type) {
-        _Traits::copy(_Ptr, _Left.c_str(), _Left.size());
-        _Traits::copy(_Ptr + _Left.size(), _Right.data(), _Right.size());
-        return _New_size;
-    });
+    basic_string<_Elem, _Traits, _Alloc> _Ret(
+        allocator_traits<_Alloc>::select_on_container_copy_construction(_Left.get_allocator()));
+    _Ret.reserve(_Left.size() + _Right.size());
+    _Ret.append(_Left);
+    _Ret.append(_Right);
     return _Ret;
 }
 
@@ -3409,13 +3407,11 @@ _NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
 _EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
 _NODISCARD constexpr basic_string<_Elem, _Traits, _Alloc> operator+(
     type_identity_t<basic_string_view<_Elem, _Traits>> _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
-    basic_string<_Elem, _Traits, _Alloc> _Ret(_Right.get_allocator());
-    const auto _New_size = _Left.size() + _Right.size();
-    _Ret.resize_and_overwrite(_New_size, [&](_Elem* _Ptr, basic_string<_Elem, _Traits, _Alloc>::size_type) {
-        _Traits::copy(_Ptr, _Left.data(), _Left.size());
-        _Traits::copy(_Ptr + _Left.size(), _Right.c_str(), _Right.size());
-        return _New_size;
-    });
+    basic_string<_Elem, _Traits, _Alloc> _Ret(
+        allocator_traits<_Alloc>::select_on_container_copy_construction(_Right.get_allocator()));
+    _Ret.reserve(_Left.size() + _Right.size());
+    _Ret.append(_Left);
+    _Ret.append(_Right);
     return _Ret;
 }
 
